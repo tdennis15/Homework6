@@ -82,24 +82,26 @@
     </form>
 </div>
 
+<!--Scripts inline here to avoid making errors in the file system-->
 <script>
+    //added a script to show the form 
     function showReviewForm()
     {
         document.getElementById("addRev").style = "display:block";
     }
 
     function checkForReviews()
-    {
+    { //will let the user know if there are any reviews currently to look at
         var element = document.getElementById("rev");
 
         if (element.innerHTML.trim() == "")
-        {
+        { //failure condition, no reviews
             element.innerHTML = "<h3>There are no reviews to display</h3>";
         }
     }
 
     function toggleVis(elementId)
-    {
+    { //clean the page up so that the user doesnt have to look at the review form or the reviews on loading.
         var element = document.getElementById(elementId);
 
         if (element.style.display == "none")

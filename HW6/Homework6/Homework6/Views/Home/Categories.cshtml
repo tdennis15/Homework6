@@ -1,0 +1,22 @@
+﻿
+@model IEnumerable<Homework6.Models.ProductSubcategory>
+
+@{
+    ViewBag.Title = "Categories";
+}
+<div class="jumbotron">
+        <!--Dynamically grabs the name of the category, used a viewbag for ease of use.-->
+    <h1>Subcategories and Types of @ViewBag.catID</h1>
+</div>
+<span>Select an option below to see items related to it.</span>
+    <div class="row col-md-12">
+        @foreach (var item in Model) // iterate over all products
+        {
+            <div class="col-md-4" style="border: 1px double black; padding: 1px;"><h4>@Html.ActionLink(item.Name, "Products", new { ID = item.ProductSubcategoryID })</h4></div>
+         }
+    </div>
+
+
+
+
+

@@ -1,0 +1,114 @@
+﻿@model Homework6.Models.Product
+
+@{//Need an object this time not an interface
+    ViewBag.Title = "Product";
+
+    //Thanks to @Jake Hatfield for helping with this. too many lambda functions and i got lost.
+    //pulling all of the data related to the product
+    ViewBag.pID = Html.DisplayFor(p => p.ProductID);
+    ViewBag.pName = @Html.DisplayFor(p => p.Name);
+    ViewBag.pClass = @Html.DisplayFor(p => p.Class);
+    ViewBag.pColor = @Html.DisplayFor(p => p.Color);
+    ViewBag.pListPrice = @Html.DisplayFor(p => p.ListPrice);
+    ViewBag.pProductLine = @Html.DisplayFor(p => p.ProductLine);
+    ViewBag.pProductNumber = @Html.DisplayFor(p => p.ProductNumber);
+    ViewBag.pSize = @Html.DisplayFor(p => p.Size) + " " + @Html.DisplayFor(p => p.SizeUnitMeasureCode);
+    ViewBag.pStyle = @Html.DisplayFor(p => p.Style);
+    ViewBag.pWeight = @Html.DisplayFor(p => p.Weight) + " " + @Html.DisplayFor(p => p.WeightUnitMeasureCode);
+}
+
+<!--We have images inside our database but they are stored in byte format, need to convert and then format. thankfully razor had us covered-->
+@{
+    var base64 = Convert.ToBase64String(ViewBag.pPhoto);
+    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+}
+<!--Putting the item name, image and price in the main display area.-->
+<div class="jumbotron"><span>@ViewBag.pName <img src="@imgSrc" ; /></span> $@ViewBag.pListPrice</div>
+
+<!--Displaying the attributes on the product-->
+<div class="row">
+    <div class="col-md-4"> <h4>Class: @ViewBag.pClass</h4> </div>
+    <div class="col-md-4"> <h4>Color: @ViewBag.pColor</h4> </div> 
+    <div class="col-md-4"> <h4>List Price: $@ViewBag.pListPrice</h4> </div>
+
+    <div class="col-md-4"> <h4>Product Line: @ViewBag.pProductLine</h4></div>   
+    <div class="col-md-4"> <h4>Product Number: @ViewBag.pProductNumber</h4></div>  
+    <div class="col-md-4"> <h4>Size: @ViewBag.pSize</h4></div>  
+    <div class="col-md-4"> <h4>Style: @ViewBag.pStyle</h4></div>  
+    <div class="col-md-4"> <h4>Weight: @ViewBag.pWeight</h4></div>  
+</div>
+  
+<br /> 
+
+<!--Handleing the reviews here instead of sending it to another page. Seemed simpler.-->
+
+<!--Hiding the options from user until they are requested-->
+<button onclick="toggleVis('rev'); checkForReviews();">See Customer Reviews</button>
+<button onclick="toggleVis('addRev');">Add your Review</button>
+<br /><br />
+
+<!--Cycle through the review table (added in from default DB)-->
+<div id="rev" style="display:none">
+    @foreach (var item in Model.ProductReviews)
+    {<p>@Html.DisplayFor(modelItem => item.ReviewerName) 
+    (@Html.DisplayFor(modelItem => item.EmailAddress)) has given this product a rating of
+    @Html.DisplayFor(modelItem => item.Rating) on @Html.DisplayFor(modelItem => item.ReviewDate). 
+    <br /> They left the following comments: <br /> @Html.DisplayFor(modelItem => item.Comments) </p>}
+</div>
+
+
+<!--Form to have a user add their own review-->
+<div id="addRev" style="display:none">
+    <br />
+    <form name="myForm" id="myForm" method="post">
+        <input name="id" type="number" value="@ViewBag.pId" style="display:none" />
+        <p>
+            <label for="name">Name:</label>
+            <input type="text" name="name" maxlength="50" />
+        </p>
+        <p>
+            <label for="email">Email:</label>
+            <input type="text" name="email" maxlength="50" />
+        </p>
+        <p>
+            <label for="rating">Rating out of 5:</label>
+            <input type="number" name="rating" min="1" max="5" />
+        </p>
+        <p>
+            <label for="comments">Comments:</label>
+            <textarea name="comments" form="myForm" maxlength="3850"></textarea>
+        </p>
+        <button type="submit">Submit Review</button>
+    </form>
+</div>
+
+<script>
+    function showReviewForm()
+    {
+        document.getElementById("addRev").style = "display:block";
+    }
+
+    function checkForReviews()
+    {
+        var element = document.getElementById("rev");
+
+        if (element.innerHTML.trim() == "")
+        {
+            element.innerHTML = "<h3>There are no reviews to display</h3>";
+        }
+    }
+
+    function toggleVis(elementId)
+    {
+        var element = document.getElementById(elementId);
+
+        if (element.style.display == "none")
+        {
+            element.style.display = "block";
+        }
+        else
+        {
+            element.style.display = "none";
+        }
+    }
+</script>

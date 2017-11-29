@@ -1,31 +1,42 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Adventure Works";
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1> Adventure Works </h1>
+    <p class="lead"> Adventure works is a small online store dealing in sporting goods</p>
+    <div class="row">
+        <div class="col-md-3">
+
+        <!--Link to the accessory category in the database, dynamic page-->
+            <p><a class="btn btn-default" href='@Url.Action("Categories", "Home", new { Category = "Accessories" })'>&laquo; Accesories &raquo;</a></p>
+        </div>
+        <div class="col-md-3">
+
+        <!--Link to the Bikes category in the database, dynamic page-->
+            <p><a class="btn btn-default" href='@Url.Action("Categories", "Home", new { Category = "Bikes" })'>&laquo; Bikes &raquo;</a></p>
+        </div>
+        <div class="col-md-3">
+
+        <!--Link to the Clothing category in the database, dynamic page-->
+            <p><a class="btn btn-default" href='@Url.Action("Categories", "Home", new { Category = "Clothing" })'>&laquo; Clothing &raquo;</a></p>
+        </div>
+
+        <!--Link to the Components category in the database, dynamic page-->
+        <div class="col-md-3">
+            <p><a class="btn btn-default" href='@Url.Action("Categories", "Home", new { Category = "Components" })'>&laquo; Components &raquo;</a></p>
+        </div>
+    </div>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+<h2>&raquo; This is a website to act as a database interface between Microsoft's AdventureWorks and our custom program.</h2><br />
+<h4>In order to find an item, First select your category, your sub category, and then the Item you wish to view.</h4>
+<br />
+<h4>All pages are created dynamically based upon input and rely very little on hard coded functions.</h4>
+<br />
+<h4>For demonstration only, created by TJ Dennis for Fall 2017 CS460</h4>
+
+
+
+
+
